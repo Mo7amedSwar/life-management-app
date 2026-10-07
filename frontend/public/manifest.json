@@ -1,0 +1,33 @@
+{
+  "name": "Time Manager — AI Platform Track",
+  "short_name": "Time Manager",
+  "description": "خطة السنتين — DevOps + AI/ML + MLOps + Business",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#6366f1",
+  "orientation": "portrait-primary",
+  "lang": "ar",
+  "dir": "rtl",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    { "name": "خريطة الطريق", "url": "/roadmap",  "description": "متابعة الخطة" },
+    { "name": "المخطط اليومي", "url": "/planner",  "description": "جدول اليوم"  },
+    { "name": "العادات",       "url": "/habits",   "description": "العادات اليومية" },
+    { "name": "المشاريع",      "url": "/projects", "description": "تتبع المشاريع" }
+  ],
+  "categories": ["education", "productivity"]
+}
