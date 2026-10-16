@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-// Base URL — update if backend port changes
-const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api'
+// Production can use a same-origin API; the static Vercel build leaves API calls disabled.
+const BASE_URL = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? 'http://localhost:8000/api' : '/api')
 
 const client = axios.create({
   baseURL: BASE_URL,

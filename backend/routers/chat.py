@@ -11,7 +11,7 @@ load_dotenv()
 router = APIRouter()
 
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
-GEMINI_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent"
+GEMINI_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent"
 
 SYSTEM_PROMPT = """أنت مساعد شخصي متخصص في التعلم والإنتاجية لطالب مصري يدرس DevOps وAI/ML وMLOps وCloud بجانب الكلية.
 خطته: Phase 0 (أساس) → Phase 1 (Linux+Python+Git) → Phase 2 (Cloud+Docker+K8s → Job-Ready) → Phase 3 (AI/ML+MLOps) → Phase 4 (CI/CD+IaC) → Phase 5 (Senior AI Platform Engineer).

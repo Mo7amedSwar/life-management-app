@@ -13,7 +13,7 @@ const RESOURCES = [
   {
     phase: 0, category: 'Tools', type: 'tool',
     title: 'Anki — Spaced Repetition',
-    description: 'أقوى أداة لحفظ المعلومات وعدم نسيانها',
+    description: 'بطاقات اختيارية للمراجعة المتباعدة للمصطلحات والأوامر المهمة',
     url: 'https://apps.ankiweb.net', free: true, priority: 1,
   },
   {
@@ -84,9 +84,9 @@ const RESOURCES = [
   // ── Phase 1: Git ────────────────────────────────────────────────────────────
   {
     phase: 1, category: 'Git', type: 'book',
-    title: 'Pro Git Book',
-    description: 'الكتاب الرسمي لـ Git — مجاني أونلاين',
-    url: 'https://git-scm.com/book/ar/v2', free: true, priority: 1,
+    title: 'Pro Git Book (English)',
+    description: 'الكتاب الرسمي لـ Git — مجاني أونلاين بالإنجليزية',
+    url: 'https://git-scm.com/book/en/v2', free: true, priority: 1,
   },
   {
     phase: 1, category: 'Git', type: 'website',
@@ -198,6 +198,18 @@ const RESOURCES = [
     description: 'كورسات قصيرة مجانية (LangChain, RAG, Agents)',
     url: 'https://www.deeplearning.ai/short-courses', free: true, priority: 1,
   },
+  {
+    phase: 3, category: 'AI/ML', type: 'website',
+    title: 'Gemini API Docs',
+    description: 'التوثيق الرسمي لربط تطبيقاتك بنماذج Gemini',
+    url: 'https://ai.google.dev/gemini-api/docs', free: true, priority: 1,
+  },
+  {
+    phase: 3, category: 'AI/ML', type: 'website',
+    title: 'n8n Documentation',
+    description: 'التوثيق الرسمي لبناء workflows وwebhooks وربط الخدمات',
+    url: 'https://docs.n8n.io/', free: true, priority: 1,
+  },
 
   // ── Phase 3: MLOps ──────────────────────────────────────────────────────────
   {
@@ -288,6 +300,24 @@ const RESOURCES = [
     description: 'بناء وتطوير Startup بطريقة علمية',
     url: 'https://theleanstartup.com', free: false, priority: 1,
   },
+  {
+    phase: 5, category: 'Content Writing', type: 'course',
+    title: 'Google Technical Writing',
+    description: 'دروس مجانية لكتابة توثيق ومحتوى تقني واضح',
+    url: 'https://developers.google.com/tech-writing/one', free: true, priority: 1,
+  },
+  {
+    phase: 5, category: 'Sales', type: 'course',
+    title: 'HubSpot Academy — Inbound Sales',
+    description: 'تدريب على فهم العميل ومحادثات البيع الاستشارية',
+    url: 'https://academy.hubspot.com/courses/inbound-sales', free: true, priority: 1,
+  },
+  {
+    phase: 5, category: 'Digital Marketing', type: 'course',
+    title: 'Google Skillshop',
+    description: 'تدريب على أدوات الإعلان والقياس الرقمي',
+    url: 'https://skillshop.withgoogle.com/', free: true, priority: 1,
+  },
 
   // ── General Dev Resources ───────────────────────────────────────────────────
   {
@@ -330,6 +360,7 @@ const PHASE_NAMES = {
   2: 'Phase 2 — Cloud + Docker + K8s',
   3: 'Phase 3 — AI/ML + MLOps',
   4: 'Phase 4 — CI/CD + IaC',
+  5: 'Phase 5 — Integration + Brand + Leadership',
   [-1]: 'Business & عام',
 }
 
@@ -389,6 +420,7 @@ const Resources = () => {
         <div>
           <h1 className="text-2xl font-bold text-white">📚 المصادر والمراجع</h1>
           <p className="text-slate-400 text-sm mt-1">{RESOURCES.length} مصدر — {totalFree} مجاني</p>
+          <p className="text-slate-500 text-xs mt-2">المصادر اقتراحات حسب المرحلة، مش كورسات إلزامية لكل مهمة. اختار مصدرًا أساسيًا واحدًا وطبّق بإيدك.</p>
         </div>
       </div>
 

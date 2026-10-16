@@ -11,7 +11,7 @@ const getDeviceId = () => {
   return id
 }
 
-const WS_URL = import.meta.env.VITE_WS_URL || 'ws://localhost:8000/api/sync/ws'
+const WS_URL = import.meta.env.VITE_WS_URL || (import.meta.env.DEV ? 'ws://localhost:8000/api/sync/ws' : '')
 
 /**
  * useRealtimeSync — connects to the backend WebSocket and:
@@ -64,6 +64,11 @@ export const useRealtimeSync = () => {
   }, [setSyncStatus, applyRemoteChange])
 
   useEffect(() => {
+    if (!WS_URL) {
+      setSyncStatus('offline')
+      return undefined
+    }
+
     connect()
     return () => {
       clearTimeout(reconnectTimer.current)

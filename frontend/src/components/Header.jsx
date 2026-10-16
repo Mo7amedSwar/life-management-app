@@ -21,6 +21,7 @@ const Header = () => {
   const location = useLocation()
   const { streak, scheduleMode, setScheduleMode, syncStatus, onlineDevices } = useAppStore()
   const title = PAGE_TITLES[location.pathname] || ''
+  const realtimeEnabled = Boolean(import.meta.env.VITE_WS_URL) || import.meta.env.DEV
 
   const nextMode  = scheduleMode === 'college' ? 'summer' : scheduleMode === 'summer' ? 'exam' : 'college'
   const modeEmoji = scheduleMode === 'college' ? '📚' : scheduleMode === 'summer' ? '☀️' : '📝'
@@ -36,12 +37,12 @@ const Header = () => {
             ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400'
             : 'bg-slate-700/50 border-slate-700 text-slate-500'
         }`}
-          title={syncStatus === 'online' ? `${onlineDevices} جهاز متصل` : 'غير متصل — يعمل محلياً'}>
+          title={!realtimeEnabled ? 'يحفظ التقدم على هذا المتصفح' : syncStatus === 'online' ? `${onlineDevices} جهاز متصل` : 'غير متصل — يعمل محلياً'}>
           <span className={`w-1.5 h-1.5 rounded-full ${
             syncStatus === 'online' ? 'bg-emerald-400 animate-pulse' : 'bg-slate-500'
           }`} />
           <span className="hidden sm:block">
-            {syncStatus === 'online' ? (onlineDevices > 1 ? `${onlineDevices} أجهزة` : 'متصل') : 'Offline'}
+            {!realtimeEnabled ? 'محلي' : syncStatus === 'online' ? (onlineDevices > 1 ? `${onlineDevices} أجهزة` : 'متصل') : 'Offline'}
           </span>
         </div>
 

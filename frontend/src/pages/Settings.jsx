@@ -15,8 +15,14 @@ const Settings = () => {
   }
 
   const exportData = () => {
+    const localData = Object.fromEntries(
+      Object.keys(localStorage)
+        .filter(key => !['GEMINI_API_KEY', 'device_id'].includes(key))
+        .map(key => [key, localStorage.getItem(key)])
+    )
     const data = {
       exportDate: new Date().toISOString(),
+      localData,
       tasks: JSON.parse(localStorage.getItem('tasks_cache') || '[]'),
       collegeSubjects: JSON.parse(localStorage.getItem('college_subjects') || '[]'),
       scheduleMode: localStorage.getItem('scheduleMode'),
@@ -38,9 +44,17 @@ const Settings = () => {
     reader.onload = (ev) => {
       try {
         const data = JSON.parse(ev.target.result)
-        if (data.tasks) localStorage.setItem('tasks_cache', JSON.stringify(data.tasks))
-        if (data.collegeSubjects) localStorage.setItem('college_subjects', JSON.stringify(data.collegeSubjects))
-        if (data.chatHistory) localStorage.setItem('chatHistory', JSON.stringify(data.chatHistory))
+        if (data.localData && typeof data.localData === 'object') {
+          Object.entries(data.localData).forEach(([key, value]) => {
+            if (!['GEMINI_API_KEY', 'device_id'].includes(key) && typeof value === 'string') {
+              localStorage.setItem(key, value)
+            }
+          })
+        } else {
+          if (data.tasks) localStorage.setItem('tasks_cache', JSON.stringify(data.tasks))
+          if (data.collegeSubjects) localStorage.setItem('college_subjects', JSON.stringify(data.collegeSubjects))
+          if (data.chatHistory) localStorage.setItem('chatHistory', JSON.stringify(data.chatHistory))
+        }
         setSaved('import')
         setTimeout(() => setSaved(''), 2000)
       } catch { alert('ملف غير صالح') }
@@ -173,8 +187,9 @@ const Settings = () => {
 
       {/* App Info */}
       <div className="text-center text-slate-600 text-xs space-y-1 pb-4">
-        <p>🗺️ خطة السنتين — AI Platform Engineer Track</p>
-        <p>Built with React + FastAPI + Gemini AI</p>
+        <p>🗺️ هندسة برمجيات ومنتجات وAI Agents — خطة سنتين</p>
+        <p>React + FastAPI + Gemini AI · نسخة الموقع تحفظ التقدم في هذا المتصفح فقط</p>
+        <p>مفتاح Gemini لا يدخل في ملف النسخة الاحتياطية</p>
         <p>Version 1.0.0 — أكتوبر ٢٠٢٦</p>
       </div>
     </div>

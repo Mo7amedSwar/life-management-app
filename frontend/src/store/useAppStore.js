@@ -1,7 +1,16 @@
 import { create } from 'zustand'
 import client from '../api/client'
+import roadmapTasks from '../data/roadmap.json'
 
 const today = () => new Date().toISOString().split('T')[0]
+const API_ENABLED = Boolean(import.meta.env.VITE_API_URL) || import.meta.env.DEV
+const ROADMAP_VERSION = 'ai-platform-roadmap-2026-1'
+const getSeedTasks = () => roadmapTasks.map((task, index) => ({
+  ...task,
+  id: index + 1,
+  completed: false,
+  custom: false,
+}))
 
 const useAppStore = create((set, get) => ({
   // ── Core state ─────────────────────────────────────────────
@@ -74,21 +83,48 @@ const useAppStore = create((set, get) => ({
 
   // ── Init ───────────────────────────────────────────────────
   initApp: async () => {
-    // Tasks — backend first, localStorage fallback
-    try {
-      const res = await client.get('/tasks')
-      set({ tasks: res.data })
-      localStorage.setItem('tasks_cache', JSON.stringify(res.data))
-    } catch {
-      const cached = localStorage.getItem('tasks_cache')
-      if (cached) set({ tasks: JSON.parse(cached) })
+    const cachedTasks = localStorage.getItem('tasks_cache')
+
+    // A static deployment starts with the selected roadmap and keeps progress in this browser.
+    if (!API_ENABLED) {
+      const cached = cachedTasks ? JSON.parse(cachedTasks) : null
+      const versionMatches = localStorage.getItem('roadmap_version') === ROADMAP_VERSION
+      const tasks = cached && versionMatches
+        ? cached
+        : (() => {
+            const previousByTitle = new Map((cached || []).map(task => [task.title, task]))
+            const seeded = getSeedTasks().map(task => ({
+              ...task,
+              completed: previousByTitle.get(task.title)?.completed || false,
+            }))
+            const customTasks = (cached || []).filter(task => task.custom)
+            return [...seeded, ...customTasks]
+          })()
+      set({ tasks })
+      localStorage.setItem('tasks_cache', JSON.stringify(tasks))
+      localStorage.setItem('roadmap_version', ROADMAP_VERSION)
+    } else {
+      try {
+        const res = await client.get('/tasks')
+        set({ tasks: res.data })
+        localStorage.setItem('tasks_cache', JSON.stringify(res.data))
+      } catch {
+        const tasks = cachedTasks ? JSON.parse(cachedTasks) : getSeedTasks()
+        set({ tasks })
+        localStorage.setItem('tasks_cache', JSON.stringify(tasks))
+      }
     }
 
     // Today's log
-    try {
-      const res = await client.get('/logs/today')
-      set({ dailyLog: res.data })
-    } catch {
+    if (API_ENABLED) {
+      try {
+        const res = await client.get('/logs/today')
+        set({ dailyLog: res.data })
+      } catch {
+        const cached = localStorage.getItem('daily_log_' + today())
+        if (cached) set({ dailyLog: JSON.parse(cached) })
+      }
+    } else {
       const cached = localStorage.getItem('daily_log_' + today())
       if (cached) set({ dailyLog: JSON.parse(cached) })
     }
@@ -107,16 +143,23 @@ const useAppStore = create((set, get) => ({
     // Sync to other devices
     broadcast?.('task_toggle', { taskId, completed })
 
-    try {
-      await client.put(`/tasks/${taskId}?completed=${completed}`)
-    } catch { /* offline — already updated locally */ }
+    if (API_ENABLED) {
+      try {
+        await client.put(`/tasks/${taskId}?completed=${completed}`)
+      } catch { /* offline — already updated locally */ }
+    }
   },
 
   addCustomTask: async (taskData) => {
-    try {
-      const res = await client.post('/tasks/custom', taskData)
-      set(state => ({ tasks: [...state.tasks, res.data] }))
-    } catch {
+    if (API_ENABLED) {
+      try {
+        const res = await client.post('/tasks/custom', taskData)
+        set(state => ({ tasks: [...state.tasks, res.data] }))
+      } catch {
+        const newTask = { ...taskData, id: Date.now(), completed: false, custom: true }
+        set(state => ({ tasks: [...state.tasks, newTask] }))
+      }
+    } else {
       const newTask = { ...taskData, id: Date.now(), completed: false, custom: true }
       set(state => ({ tasks: [...state.tasks, newTask] }))
     }
@@ -134,9 +177,11 @@ const useAppStore = create((set, get) => ({
     set({ dailyLog: logData })
     localStorage.setItem('daily_log_' + today(), JSON.stringify(logData))
     broadcast?.('daily_log', logData)
-    try {
-      await client.post('/logs/daily', logData)
-    } catch { /* offline ok */ }
+    if (API_ENABLED) {
+      try {
+        await client.post('/logs/daily', logData)
+      } catch { /* offline ok */ }
+    }
     get().calculateStreak()
   },
 
