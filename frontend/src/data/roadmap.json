@@ -243,5 +243,19 @@
   { "title": "Code review best practices: author checklist & PR etiquette", "phase": 1, "category": "DevOps" },
   { "title": "Code review: reviewer protocol, Nit convention, blameless feedback", "phase": 1, "category": "DevOps" },
   { "title": "Automated PR quality gates: Ruff, Black, ESLint, CodeQL in CI", "phase": 1, "category": "DevOps" },
-  { "title": "Definition of Done (DoD) & engineering team practices", "phase": 1, "category": "DevOps" }
+  { "title": "Definition of Done (DoD) & engineering team practices", "phase": 1, "category": "DevOps" },
+
+  { "title": "كتاب: The Linux Command Line — William Shotts (مجاني أونلاين)", "phase": 1, "category": "DevOps" },
+  { "title": "كتاب: Automate the Boring Stuff with Python — Al Sweigart (مجاني)", "phase": 1, "category": "DevOps" },
+  { "title": "كتاب: Pro Git — Scott Chacon (مجاني أونلاين كامل)", "phase": 1, "category": "DevOps" },
+
+  { "title": "Reverse Engineering: مفهوم الـ Binary Analysis وإزاي البرامج بتشتغل", "phase": 5, "category": "DevOps" },
+  { "title": "Reverse Engineering: Assembly language أساسيات (x86/x64)", "phase": 5, "category": "DevOps" },
+  { "title": "Reverse Engineering: Ghidra disassembler (مجاني من NSA)", "phase": 5, "category": "DevOps" },
+  { "title": "Reverse Engineering: x64dbg debugger للـ Windows binaries", "phase": 5, "category": "DevOps" },
+  { "title": "Reverse Engineering: Static vs Dynamic analysis", "phase": 5, "category": "DevOps" },
+  { "title": "Reverse Engineering: CTF challenges (Pwn, Crackme)", "phase": 5, "category": "DevOps" },
+  { "title": "Reverse Engineering: Malware analysis basics", "phase": 5, "category": "DevOps" },
+  { "title": "كتاب: Hacking: The Art of Exploitation — Jon Erickson", "phase": 5, "category": "DevOps" },
+  { "title": "PROJECT: CTF Competition (Reverse Engineering challenge)", "phase": 5, "category": "DevOps" }
 ]
