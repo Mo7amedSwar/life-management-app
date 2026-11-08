@@ -8,9 +8,11 @@
   { "title": "GitHub profile README", "phase": 0, "category": "Business" },
   { "title": "Weekly LinkedIn posts", "phase": 0, "category": "Business" },
   { "title": "Python Crash Course Vol.1", "phase": 0, "category": "AI/ML" },
+  { "title": "CS50P — Harvard Python Course (مجاني على edX)", "phase": 0, "category": "AI/ML" },
   { "title": "Codewars daily exercises", "phase": 0, "category": "AI/ML" },
   { "title": "PROJECT: My Learning OS in Notion", "phase": 0, "category": "Business" },
 
+  { "title": "CS50x — Harvard CS Introduction: C, Memory, Algorithms, SQL (مجاني)", "phase": 1, "category": "DevOps" },
   { "title": "Linux file system structure (FHS)", "phase": 1, "category": "DevOps" },
   { "title": "Basic Linux commands: ls, cd, cp, mv, rm", "phase": 1, "category": "DevOps" },
   { "title": "File permissions & users: chmod, chown, umask", "phase": 1, "category": "DevOps" },
@@ -98,6 +100,9 @@
   { "title": "PROJECT 5: AWS Cloud Infrastructure", "phase": 2, "category": "DevOps" },
   { "title": "PROJECT 6: Kubernetes Deployment with Helm", "phase": 2, "category": "DevOps" },
 
+  { "title": "CS50AI — Harvard AI with Python: Search, ML, Neural Networks, NLP (مجاني)", "phase": 3, "category": "AI/ML" },
+  { "title": "CS50 Cybersecurity — Harvard: Cryptography, Web Security, Forensics (مجاني)", "phase": 4, "category": "DevOps" },
+  { "title": "CS50SQL — Harvard: Databases, SQL, Data Engineering (مجاني - اختياري)", "phase": 3, "category": "AI/ML" },
   { "title": "Math for ML: Linear Algebra (vectors, matrices, SVD, eigenvalues)", "phase": 3, "category": "AI/ML" },
   { "title": "Math for ML: Calculus (gradients, chain rule, Jacobians)", "phase": 3, "category": "AI/ML" },
   { "title": "Math for ML: Probability & Statistics (Bayes, distributions, hypothesis testing)", "phase": 3, "category": "AI/ML" },
